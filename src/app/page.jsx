@@ -1,8 +1,14 @@
+"use client"
+import { FlashCard } from "@/components/flashcard"
+
+
 
 export default function Inicio() {
+
+
   return (
-    <div>
-      Hola bro
-    </div>
+    <>
+      <FlashCard></FlashCard>
+    </>
   )
 }
