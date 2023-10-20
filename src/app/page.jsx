@@ -1,13 +1,13 @@
 "use client"
-import { useState } from "react";
 import { FlashCard } from "@/components/flashcard";
+import { useState } from "react";
 
 export default function Inicio() {
-  const [showFlashCard, setShowFlashCard] = useState(false);
+  const [flashCardCount, setFlashCardCount] = useState(1);
   const [animateBounce, setAnimateBounce] = useState(true);
 
   const handleClick = () => {
-    setShowFlashCard(!showFlashCard);
+    setFlashCardCount(flashCardCount + 1);
     setAnimateBounce(false);
   };
 
@@ -26,7 +26,9 @@ export default function Inicio() {
       </svg>
 
       <div>
-        {showFlashCard && <FlashCard />}
+        {Array.from({ length: flashCardCount }).map((_, index) => (
+          <FlashCard key={index} />
+        ))}
       </div>
     </div>
   );
