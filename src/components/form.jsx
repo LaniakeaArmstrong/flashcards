@@ -1,22 +1,32 @@
+"use client"
 
-//TODO: extrae los elementos HTML necesarios para crear el formulario que se usará tanto para crear como para editar flashcards
-
-export function Formulario() {
+//TODO: cambiar texto de formulario (Crear Flashcard) a "Modificar Flashcard" o "Crear Flashcard" según corresponda
+export function Form() {
   return (
-    <div className="h-[calc(100vh-25rem)] flex justify-center items-">
-      <form action="" method="" className="">
-        <textarea
-          name="pregunta"
-          placeholder="Pregunta aquí..."
-          cols="60"
-          rows="1"
-          autoFocus
-          className="bg-gray-800 text-white
-            rounded-lg focus:border-21 border px-3 py-3 resize-none outline-none text-center"/>
-      </form>
+    // <div className="">
+    <form action="" method="" className="relative">
+      <h1 className="text-white font-semibold text-3xl absolute left-1/3 top-[180px]">Crear Flashcard</h1>
+      <textarea
+        name="pregunta"
+        placeholder="Pregunta aquí..."
+        cols="70"
+        rows="1"
+        autoFocus
+        className="bg-gray-800 text-white
+            rounded-lg focus:border-21 border px-3 py-3 resize-none outline-none text-center absolute left-1/3 top-[230px]"/>
 
-    </div>
+      <textarea
+        name="respuesta"
+        placeholder="Respuesta aquí..."
+        cols="70"
+        rows="5"
+        className="bg-gray-800 text-white
+          rounded-lg focus:border-21 border px-3 py-3 resize-none outline-none text-center absolute left-1/3 top-[310px]">
+
+      </textarea>
+    </form>
+    // </div>
   )
 }
 
-exports = { Formulario }
+module.exports = { Form }

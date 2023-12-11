@@ -1,5 +1,5 @@
 
-export default function FlashCard() {
+export default function FlashCardDesign() {
 
   return (
     <>

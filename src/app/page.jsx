@@ -1,6 +1,6 @@
 "use client"
 
-export default function Inicio() {
+export default function MainPage() {
   return (
     <div className="flex justify-center">
       {/* <h1 className=" from-neutral-300 to-slate-50 bg-gradient-to-b
@@ -9,7 +9,7 @@ export default function Inicio() {
              select-none text-transparent bg-clip-text ">
         FLASHCARDS
       </h1> */}
-      <h1 className="text-white">Hola</h1>
+      <h1 className="text-white">Hola, ahora mismo estás en la página principal</h1>
     </div>
   );
 }

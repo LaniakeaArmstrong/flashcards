@@ -1,3 +1,4 @@
-import { Formulario } from "@/components/form";
+"use client"
+import { Form } from "@/components/form";
 
-export default Formulario;
+export default Form;
