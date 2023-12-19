@@ -8,7 +8,6 @@ export async function GET() {
     } catch (error) {
         console.error(error)
     }
-
 }
 
 export async function POST(request) {
