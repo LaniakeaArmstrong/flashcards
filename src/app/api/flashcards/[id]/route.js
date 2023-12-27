@@ -14,7 +14,26 @@ export async function GET(request, { params }) {
     }
 }
 
-//TODO: terminar esto pues...
-export async function POST(request, { params }) {
+export async function PUT(request, { params }) {
+    try {
+        const flashcardModification = await request.json()
 
+        const singleQuote = "'"
+        const question = singleQuote + flashcardModification["Question"] + singleQuote
+        const answer = singleQuote + flashcardModification["Answer"] + singleQuote
+        const modifiedFlashcard = await pool.promise().execute(`UPDATE \`cards\` SET Question = ${ question }, Answer = ${ answer } WHERE ID = ${ params.id }`)
+
+        return NextResponse.json(modifiedFlashcard)
+    } catch (error) {
+        return NextResponse.json({ error: "Error al modificar flashcard" }, { status: 500 })
+    }
+}
+
+export async function DELETE(request, { params }) {
+    try {
+        const deletedFlashcard = await pool.promise().execute(`DELETE FROM \`cards\` WHERE ID IN (${ params.id })`)
+        return NextResponse.json(deletedFlashcard)
+    } catch (error) {
+        return NextResponse.json({error: "Error al eliminar flashcard"}, {status: 500})
+    }
 }
