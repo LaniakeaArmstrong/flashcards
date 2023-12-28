@@ -1,18 +1,18 @@
 "use client"
-
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react"
-
-//TODO: cambiar texto de formulario (Crear Flashcard) a "Modificar Flashcard" o "Crear Flashcard" según corresponda
+import { useEffect, useState } from "react"
+import { DeleteButton } from "@/components/DeleteButton";
 
 export function FormFlashcards() {
   const [newFlashcard, setNewFlashcard] = useState({ Question: "", Answer: "" });
   const router = useRouter()
   const params = useParams()
 
-  // const obtenerFlashcard = async () => {
-  //   const response = await fetch(`/api/flashcards/${ params.id }`, { method: "GET" });
-  // }
+  const obtenerFlashcard = async () => {
+    const response = await fetch(`/api/flashcards/${ params.id }`, { method: "GET" });
+    const flashcard = await response.json()
+    setNewFlashcard({ Question: flashcard[0].Question, Answer: flashcard[0].Answer })
+  }
 
   const crearFlashcard = async () => {
     try {
@@ -29,6 +29,21 @@ export function FormFlashcards() {
     }
   }
 
+  const actualizarFlashcard = async () => {
+    try {
+      const response = await fetch(`/api/flashcards/${ params.id }`, {
+        method: "PUT",
+        body: JSON.stringify(newFlashcard),
+        headers: { "Content-Type": "application/json" }
+      })
+      await response.json();
+      router.push("/")
+      router.refresh()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const manejarCambios = async (elem) => {
     setNewFlashcard({ ...newFlashcard, [elem.target.name]: elem.target.value })
   }
@@ -37,8 +52,16 @@ export function FormFlashcards() {
     event.preventDefault();
     if (!params.id) {
       await crearFlashcard()
+    } else {
+      await actualizarFlashcard()
     }
   }
+
+  useEffect(() => {
+    if (params.id) {
+      obtenerFlashcard()
+    }
+  }, [])
 
   return (
     <form onSubmit={ guardarFlashcard }>
@@ -51,9 +74,9 @@ export function FormFlashcards() {
               !params.id ? "Crear Flashcard" : "Modificar Flashcard"
             }
           </h1>
-          <button
-            className="bg-red-600 text-white font-medium px-3 py-2 rounded-md"
-            type="button">Borrar</button>
+          {
+            params.id ? (<DeleteButton></DeleteButton>) : ""
+          }
         </div>
 
         <textarea name="Question"
